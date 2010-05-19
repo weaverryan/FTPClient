@@ -176,7 +176,10 @@ class Ftp_Client
 	{
 		if (false !== $this->rConn)
 		{
-			ftp_chdir($this->rConn, $sDirectory);
+			if (!@ftp_chdir($this->rConn, $sDirectory))
+      {
+        throw new Exception(sprintf('Cannot change to directory "%s"', $sDirectory));
+      }
 		} // if
 		return $this;
 	} // function
